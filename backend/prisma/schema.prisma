@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String                 @id @default(uuid()) @db.Char(36)
+  name                 String
+  email                String                 @unique
+  password             String
+  role                 String
+  created_at           DateTime               @default(now())
+  ScheduledAppointment ScheduledAppointment[]
+
+  @@map("users")
+}
+
+model Barber {
+  id           String                 @id @default(uuid()) @db.Char(36)
+  name         String
+  age          Int
+  dateHire     DateTime
+  created_at   DateTime              @default(now())
+  updated_at   DateTime              @updatedAt
+  appointments ScheduledAppointment[]
+  specialties  BarberSpecialty[]
+
+  @@map("barbers")
+}
+
+model Specialty {
+  id       String             @id @default(uuid()) @db.Char(36)
+  name     String             @unique
+  barbers  BarberSpecialty[]
+
+  @@map("specialties")
+}
+
+model BarberSpecialty {
+  barber_id    String
+  specialty_id String
+
+  barber       Barber    @relation(fields: [barber_id], references: [id])
+  specialty    Specialty @relation(fields: [specialty_id], references: [id])
+
+  @@id([barber_id, specialty_id])
+  @@map("barber_specialties")
+}
+
+model ScheduledAppointment {
+  id                   String                 @id @default(uuid())
+  date                 DateTime
+  user                 User                   @relation(fields: [user_id], references: [id])
+  user_id              String
+  barber               Barber                 @relation(fields: [barber_id], references: [id])
+  barber_id            String
+
+  @@map("scheduled_appointment")
+}
