@@ -13,14 +13,26 @@ export default class BarberRepository implements IBarberModel {
   async getBarberById(id: string): Promise<IBarber | null> {
     const find = await prisma.barber.findUnique({
       where: { id },
-      include: { specialties: { include: { specialty: true } } },
+      include: {
+        specialties: {
+          select: {
+            specialty: true,
+          },
+        },
+      },
     });
     return find as IBarber | null;
   }
 
   async getBarbers(): Promise<IBarber[]> {
     const find = await prisma.barber.findMany({
-      include: { specialties: { include: { specialty: true } } },
+      include: {
+        specialties: {
+          select: {
+            specialty: true,
+          },
+        },
+      },
     });
     return find as IBarber[];
   }
