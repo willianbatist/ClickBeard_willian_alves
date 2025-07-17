@@ -1,6 +1,9 @@
 import { ILogin, IUser, IUserModel, IUserService } from '../interfaces/IUser';
 import bcrypt from 'bcrypt';
 import generateJWT from '../utils/generateJWT';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default class UserService implements IUserService {
   constructor(private repository: IUserModel) {
@@ -27,6 +30,13 @@ export default class UserService implements IUserService {
       role: user?.role,
     };
     const token = generateJWT(userData);
-    return { token, name: user?.name, email: user?.email, role: user?.role, id: user?.id };
+    return {
+      token,
+      expiresIn: process.env.EXPIRATION_TIME,
+      name: user?.name,
+      email: user?.email,
+      role: user?.role,
+      id: user?.id,
+    };
   }
 }
