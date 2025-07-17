@@ -31,8 +31,6 @@ function Login() {
     try {
       const loginResponse = await requestLogin('/login', data);
 
-      console.log('Login response:', loginResponse);
-
       if (!loginResponse.email || !loginResponse.token) {
         customToast('Email e/ou senha inválidos.', 'error');
         return;
