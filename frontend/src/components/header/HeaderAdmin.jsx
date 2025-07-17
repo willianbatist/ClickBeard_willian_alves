@@ -1,4 +1,3 @@
-// HeaderAdmin.jsx
 import { HeaderContainer, NavContainer } from './headerAdmin.styles';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';

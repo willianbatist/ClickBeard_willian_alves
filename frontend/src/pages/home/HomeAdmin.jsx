@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import HeaderAdmin from "../../components/header/HeaderAdmin";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../contexts/contextProvider";
-import { sendRequest, requestToken } from "../../services";
-import { useNavigate } from "react-router-dom";
-import {
-  HomeAdminContainer,
-  Container,
-  ContainerCardBarber,
-} from "./homeAdmin.styles";
-import CardBarber from "../../components/cardBarber/CardBarber";
-import { useCustomToast } from "../../util";
+import HeaderAdmin from '../../components/header/HeaderAdmin';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../contexts/contextProvider';
+import { sendRequest, requestToken } from '../../services';
+import { useNavigate } from 'react-router-dom';
+import { HomeAdminContainer, Container, ContainerCardBarber } from './homeAdmin.styles';
+import CardBarber from '../../components/cardBarber/CardBarber';
+import { useCustomToast } from '../../util';
 
 function HomeAdmin() {
   const { setBarbers, user, barbers } = useContext(AppContext);
@@ -31,7 +27,6 @@ function HomeAdmin() {
     customToast('Colaborador removido', 'success');
   };
 
-  // Função para atualizar a lista de barbeiros após modificação das especialidades
   const handleUpdateBarbers = () => {
     setUpdateTrigger((prev) => prev + 1);
   };

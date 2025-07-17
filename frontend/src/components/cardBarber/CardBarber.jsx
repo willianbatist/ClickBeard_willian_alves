@@ -61,7 +61,6 @@ function CardBarber(Props) {
         </div>
       </CardBarberContainer>
 
-      {/* Modal para gerenciar especialidades */}
       <SpecialtiesModal
         isOpen={isSpecialtiesOpen}
         onClose={onSpecialtiesClose}
@@ -71,7 +70,6 @@ function CardBarber(Props) {
         onUpdate={Props.onUpdate}
       />
 
-      {/* Modal para remover barbeiro */}
       <Modal isOpen={isDeleteOpen} onClose={onDeleteClose}>
         <ModalOverlay bg="none" backdropFilter="auto" backdropInvert="20%" backdropBlur="3px" />
         <ModalContent>

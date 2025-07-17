@@ -1,4 +1,3 @@
-// Login.jsx
 import { Container, LoginContainer, GroupButton, Logo } from './login.styles';
 import { useForm } from 'react-hook-form';
 import { Button, InputGroup, Input, InputRightElement } from '@chakra-ui/react';
@@ -22,7 +21,6 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  // Redirecionar se já estiver autenticado
   useEffect(() => {
     if (isUserAuthenticated) {
       navigate('/');
@@ -35,13 +33,11 @@ function Login() {
 
       console.log('Login response:', loginResponse);
 
-      // Verifica se o login foi bem-sucedido
       if (!loginResponse.email || !loginResponse.token) {
         customToast('Email e/ou senha inválidos.', 'error');
         return;
       }
 
-      // Usar a função login do contexto que já salva no localStorage
       login(loginResponse);
       customToast('Login realizado com sucesso!', 'success');
       navigate('/');

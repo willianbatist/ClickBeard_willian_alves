@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -22,9 +22,9 @@ export const SpecialtyForm = styled.form`
   gap: 30px;
 
   border-radius: 40px;
-  -webkit-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
 
   p {
     color: red;
@@ -109,7 +109,7 @@ export const SpecialtyItem = styled.div`
   &:hover {
     background-color: #e9ecef;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   span {
@@ -122,7 +122,7 @@ export const SpecialtyItem = styled.div`
 
   svg {
     transition: all 0.3s ease;
-    
+
     &:hover {
       transform: scale(1.2);
     }

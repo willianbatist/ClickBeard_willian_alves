@@ -1,17 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  ContainerSchedules,
-  Container,
-  ContainerCardSchedules,
-} from "./schedules.styles";
-import HeaderCustomer from "../../components/header/HeaderCustomer";
-import CardSchedules from "../../components/cardSchedules/CardSchedules";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../contexts/contextProvider";
-import { requestToken, sendRequest } from "../../services";
-import { useNavigate } from "react-router-dom";
-import { findBarberNameById, sortAppointments } from "../../util";
-import { useCustomToast } from "../../util";
+import { ContainerSchedules, Container, ContainerCardSchedules } from './schedules.styles';
+import HeaderCustomer from '../../components/header/HeaderCustomer';
+import CardSchedules from '../../components/cardSchedules/CardSchedules';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../contexts/contextProvider';
+import { requestToken, sendRequest } from '../../services';
+import { useNavigate } from 'react-router-dom';
+import { findBarberNameById, sortAppointments } from '../../util';
+import { useCustomToast } from '../../util';
 
 function Schedules() {
   const { user } = useContext(AppContext);
@@ -23,30 +19,27 @@ function Schedules() {
 
   const handleRequestSchedules = async () => {
     requestToken(user?.token);
-    const res = await sendRequest(
-      "get",
-      `/scheduledAppointment/customer/${user?.id}`
-    );
+    const res = await sendRequest('get', `/scheduledAppointment/customer/${user?.id}`);
     setSchedules(res);
   };
 
   const handleRequestBarbers = async () => {
     requestToken(user?.token);
-    const res = await sendRequest("get", "/barber");
+    const res = await sendRequest('get', '/barber');
     setBarbers(res);
   };
 
   const handleRequestDelete = async (id, onClose) => {
     requestToken(user?.token);
-    await sendRequest("delete", `/scheduledAppointment/customer/delete/${id}`);
+    await sendRequest('delete', `/scheduledAppointment/customer/delete/${id}`);
     onClose();
     setIsDelete(!isDelete);
-    customToast("Deletado com Sucesso", "success");
+    customToast('Deletado com Sucesso', 'success');
   };
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     handleRequestSchedules();
     handleRequestBarbers();

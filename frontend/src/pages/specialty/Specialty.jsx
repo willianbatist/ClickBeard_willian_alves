@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useContext, useEffect } from "react";
-import { Container, SpecialtyForm, SpecialtyList, SpecialtyItem } from "./specialty.styles";
-import Header from "../../components/header";
-import { Input, Button, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { useForm } from "react-hook-form";
-import { AppContext } from "../../contexts/contextProvider";
-import { requestToken, sendRequest } from "../../services";
-import { useCustomToast } from "../../util";
+import React, { useState, useContext, useEffect } from 'react';
+import { Container, SpecialtyForm, SpecialtyList, SpecialtyItem } from './specialty.styles';
+import Header from '../../components/header';
+import { Input, Button, InputGroup, InputRightElement } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+import { useForm } from 'react-hook-form';
+import { AppContext } from '../../contexts/contextProvider';
+import { requestToken, sendRequest } from '../../services';
+import { useCustomToast } from '../../util';
 
 function Specialty() {
   const { user } = useContext(AppContext);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('');
   const [specialties, setSpecialties] = useState([]);
-  const [specialtyName, setSpecialtyName] = useState("");
+  const [specialtyName, setSpecialtyName] = useState('');
   const [loading, setLoading] = useState(false);
   const customToast = useCustomToast();
 
@@ -24,7 +24,6 @@ function Specialty() {
     formState: { errors },
   } = useForm();
 
-  // Buscar especialidades ao carregar a página
   useEffect(() => {
     if (user) {
       setToken(user?.token);
@@ -37,12 +36,12 @@ function Specialty() {
       setLoading(true);
       if (user?.token) {
         requestToken(user.token);
-        const responseData = await sendRequest("get", "/specialties");
+        const responseData = await sendRequest('get', '/specialties');
         setSpecialties(responseData || []);
       }
     } catch (error) {
-      console.error("Erro ao buscar especialidades:", error);
-      customToast("Erro ao carregar especialidades", "error");
+      console.error('Erro ao buscar especialidades:', error);
+      customToast('Erro ao carregar especialidades', 'error');
     } finally {
       setLoading(false);
     }
@@ -56,20 +55,19 @@ function Specialty() {
       };
 
       requestToken(token);
-      const responseData = await sendRequest("post", "/specialty", body);
-      
+      const responseData = await sendRequest('post', '/specialty', body);
+
       if (responseData && responseData.id) {
-        customToast("Especialidade criada com sucesso", "success");
+        customToast('Especialidade criada com sucesso', 'success');
         reset();
-        setSpecialtyName("");
-        // Atualizar a lista de especialidades
+        setSpecialtyName('');
         fetchSpecialties();
       } else {
-        customToast("Erro ao criar especialidade", "error");
+        customToast('Erro ao criar especialidade', 'error');
       }
     } catch (error) {
-      console.error("Erro ao criar especialidade:", error);
-      customToast("Erro ao criar especialidade", "error");
+      console.error('Erro ao criar especialidade:', error);
+      customToast('Erro ao criar especialidade', 'error');
     } finally {
       setLoading(false);
     }
@@ -79,14 +77,14 @@ function Specialty() {
     try {
       setLoading(true);
       requestToken(token);
-      await sendRequest("delete", `/specialty/${id}`);
-      
-      customToast("Especialidade excluída com sucesso", "success");
-      // Atualizar a lista removendo o item excluído
-      setSpecialties(specialties.filter(specialty => specialty.id !== id));
+      await sendRequest('delete', `/specialty/${id}`);
+
+      customToast('Especialidade excluída com sucesso', 'success');
+
+      setSpecialties(specialties.filter((specialty) => specialty.id !== id));
     } catch (error) {
-      console.error("Erro ao excluir especialidade:", error);
-      customToast("Erro ao excluir especialidade", "error");
+      console.error('Erro ao excluir especialidade:', error);
+      customToast('Erro ao excluir especialidade', 'error');
     } finally {
       setLoading(false);
     }
@@ -104,22 +102,22 @@ function Specialty() {
       <Container>
         <SpecialtyForm>
           <h1>Gerenciar Especialidades</h1>
-          
+
           <span>Nova Especialidade:</span>
-          <InputGroup size="md" width={"80%"}>
+          <InputGroup size="md" width={'80%'}>
             <Input
               focusBorderColor="#18382d"
               pr="4.5rem"
               type="text"
               value={specialtyName}
-              {...register("name", { 
-                required: "Nome da especialidade é obrigatório",
-                minLength: { value: 2, message: "Nome deve ter pelo menos 2 caracteres" }
+              {...register('name', {
+                required: 'Nome da especialidade é obrigatório',
+                minLength: { value: 2, message: 'Nome deve ter pelo menos 2 caracteres' },
               })}
               onChange={(e) => {
                 setSpecialtyName(e.target.value);
               }}
-              _placeholder={{ color: "#18382d" }}
+              _placeholder={{ color: '#18382d' }}
               placeholder="Digite o nome da especialidade"
               disabled={loading}
             />
@@ -130,7 +128,7 @@ function Specialty() {
                 onClick={handleAddSpecialty}
                 color="white"
                 backgroundColor="#18382d"
-                marginRight={"4px"}
+                marginRight={'4px'}
                 isLoading={loading}
                 disabled={loading || !specialtyName.trim()}
               >
@@ -150,11 +148,11 @@ function Specialty() {
               specialties.map((specialty) => (
                 <SpecialtyItem key={specialty.id}>
                   <span>{specialty.name}</span>
-                  <DeleteIcon 
-                    color="red.500" 
+                  <DeleteIcon
+                    color="red.500"
                     cursor="pointer"
                     onClick={() => handleDelete(specialty.id)}
-                    _hover={{ color: "red.700" }}
+                    _hover={{ color: 'red.700' }}
                   />
                 </SpecialtyItem>
               ))

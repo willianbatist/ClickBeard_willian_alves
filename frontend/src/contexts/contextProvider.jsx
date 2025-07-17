@@ -1,4 +1,3 @@
-// contextProvider.jsx
 import React, { createContext, useState, useEffect } from 'react';
 import { getUserFromStorage, saveUserToStorage, removeUserFromStorage } from '../util/auth_utils';
 import { requestToken } from '../services';
@@ -10,7 +9,6 @@ const AppProvider = ({ children }) => {
   const [barbers, setBarbers] = useState(null);
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
-  // Função para fazer login
   const login = (userData) => {
     setUserState(userData);
     saveUserToStorage(userData);
@@ -18,15 +16,13 @@ const AppProvider = ({ children }) => {
     setIsUserAuthenticated(true);
   };
 
-  // Função para fazer logout
   const logout = () => {
     setUserState(null);
     removeUserFromStorage();
-    requestToken(''); // Remove o token do axios
+    requestToken('');
     setIsUserAuthenticated(false);
   };
 
-  // Função para atualizar o estado do usuário
   const setUser = (userData) => {
     if (userData) {
       login(userData);
@@ -35,7 +31,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // Verificar se há dados salvos no localStorage ao carregar a aplicação
   useEffect(() => {
     const checkStoredAuth = () => {
       const storedUser = getUserFromStorage();

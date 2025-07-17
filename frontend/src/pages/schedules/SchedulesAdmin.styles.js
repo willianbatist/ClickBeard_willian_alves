@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContainerSchedulesAdmin = styled.div`
   min-height: 100vh;

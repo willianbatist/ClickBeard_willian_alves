@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Container, RegisterForm } from "./registerBarber.styles";
-import Header from "../../components/header";
+import { Container, RegisterForm } from './registerBarber.styles';
+import Header from '../../components/header';
 import { Input, Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { useState, useContext, useEffect } from 'react';

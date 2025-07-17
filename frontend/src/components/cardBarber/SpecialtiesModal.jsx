@@ -23,7 +23,6 @@ function SpecialtiesModal({ isOpen, onClose, barberId, barberName, barberSpecial
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  // Buscar todas as especialidades disponíveis
   const fetchAllSpecialties = async () => {
     try {
       const response = await sendRequest('get', '/specialties');
@@ -40,17 +39,14 @@ function SpecialtiesModal({ isOpen, onClose, barberId, barberName, barberSpecial
     }
   };
 
-  // Configurar especialidades selecionadas quando o modal abrir
   useEffect(() => {
     if (isOpen) {
       fetchAllSpecialties();
-      // Extrair IDs das especialidades do barbeiro
       const currentSpecialtyIds = barberSpecialties.map((item) => item.specialty.id);
       setSelectedSpecialties(currentSpecialtyIds);
     }
   }, [isOpen, barberSpecialties]);
 
-  // Função para adicionar/remover especialidade
   const handleSpecialtyToggle = (specialtyId) => {
     setSelectedSpecialties((prev) => {
       if (prev.includes(specialtyId)) {
@@ -61,29 +57,23 @@ function SpecialtiesModal({ isOpen, onClose, barberId, barberName, barberSpecial
     });
   };
 
-  // Função para salvar as alterações
   const handleSave = async () => {
     setLoading(true);
     try {
-      // Especialidades atuais do barbeiro
       const currentSpecialtyIds = barberSpecialties.map((item) => item.specialty.id);
 
-      // Especialidades a serem removidas
       const specialtiesToRemove = currentSpecialtyIds.filter(
         (id) => !selectedSpecialties.includes(id)
       );
 
-      // Especialidades a serem adicionadas
       const specialtiesToAdd = selectedSpecialties.filter(
         (id) => !currentSpecialtyIds.includes(id)
       );
 
-      // Remover especialidades
       for (const specialtyId of specialtiesToRemove) {
         await sendRequest('delete', `/barber/${barberId}/specialty/${specialtyId}`);
       }
 
-      // Adicionar especialidades
       for (const specialtyId of specialtiesToAdd) {
         await sendRequest('post', `/barber/${barberId}/specialty`, {
           specialtyId: specialtyId,
@@ -98,7 +88,6 @@ function SpecialtiesModal({ isOpen, onClose, barberId, barberName, barberSpecial
         isClosable: true,
       });
 
-      // Atualizar a lista de barbeiros na tela principal
       if (onUpdate) {
         onUpdate();
       }

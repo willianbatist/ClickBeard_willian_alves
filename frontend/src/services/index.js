@@ -1,4 +1,3 @@
-// services/index.js
 import axios from 'axios';
 import { removeUserFromStorage } from '../util/auth_utils';
 
@@ -6,7 +5,6 @@ const api = axios.create({
   baseURL: `http://localhost:3001`,
 });
 
-// Interceptor para adicionar o token automaticamente nas requisições
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('clickbeard_auth');
@@ -25,12 +23,10 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para tratar respostas de erro (ex: token expirado)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token inválido ou expirado
       removeUserFromStorage();
       window.location.href = '/login';
     }

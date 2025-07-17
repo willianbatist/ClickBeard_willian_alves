@@ -1,34 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import HeaderAdmin from "../../components/header/HeaderAdmin";
-import { ContainerSchedulesAdmin, Container, CardContainer, CardsContainer } from "./SchedulesAdmin.styles";
-import { Select } from "@chakra-ui/react";
-import { requestToken, sendRequest } from "../../services";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../contexts/contextProvider";
-import { useNavigate } from "react-router-dom";
+import HeaderAdmin from '../../components/header/HeaderAdmin';
+import {
+  ContainerSchedulesAdmin,
+  Container,
+  CardContainer,
+  CardsContainer,
+} from './SchedulesAdmin.styles';
+import { Select } from '@chakra-ui/react';
+import { requestToken, sendRequest } from '../../services';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../contexts/contextProvider';
+import { useNavigate } from 'react-router-dom';
 import {
   getUniqueDates,
   formatDateNotHours,
   formatDate,
   findBarberNameById,
   filterDates,
-} from "../../util";
+} from '../../util';
 
 function SchedulesAdmin() {
   const [schedules, setSchedules] = useState();
   const [date, setDate] = useState();
-  const [optionFilter, setOptionFilter] = useState("all");
+  const [optionFilter, setOptionFilter] = useState('all');
   const { user, barbers } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleRequestSchedules = async () => {
-    const res = await sendRequest("get", "/scheduledAppointment");
+    const res = await sendRequest('get', '/scheduledAppointment');
     setSchedules(res);
   };
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     requestToken(user?.token);
     handleRequestSchedules();
@@ -48,14 +53,15 @@ function SchedulesAdmin() {
         <Container>
           <h1>Meus agendamentos</h1>
           <Select
-          _placeholder={{ color: "#18382d" }}
-          width={"80%"} 
-          placeholder="Selecione a opção"
-          onClick={(e) => {
-            if (e.target.value !== "") {
-              setOptionFilter(e.target.value)
-            }
-          }}>
+            _placeholder={{ color: '#18382d' }}
+            width={'80%'}
+            placeholder="Selecione a opção"
+            onClick={(e) => {
+              if (e.target.value !== '') {
+                setOptionFilter(e.target.value);
+              }
+            }}
+          >
             <option value="all">Todos</option>
             {date &&
               date?.map((item, index) => (
@@ -65,7 +71,8 @@ function SchedulesAdmin() {
               ))}
           </Select>
           <CardsContainer>
-            {barbers && schedules &&
+            {barbers &&
+              schedules &&
               filterDates(schedules, optionFilter).map((item) => (
                 <CardContainer key={item.id}>
                   <p>

@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import HeaderCustomer from "../../components/header/HeaderCustomer";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../contexts/contextProvider";
-import { useNavigate } from "react-router-dom";
+import HeaderCustomer from '../../components/header/HeaderCustomer';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../contexts/contextProvider';
+import { useNavigate } from 'react-router-dom';
 import {
   ContainerCustomer,
   ContainerSchedule,
   Options,
   ContainerButton,
   ContainerOptions,
-} from "./homeCustomer.styles.js";
-import { Select, Input, Button } from "@chakra-ui/react";
-import { sendRequest, requestToken } from "../../services/index.js";
-import { useForm } from "react-hook-form";
+} from './homeCustomer.styles.js';
+import { Select, Input, Button } from '@chakra-ui/react';
+import { sendRequest, requestToken } from '../../services/index.js';
+import { useForm } from 'react-hook-form';
 import {
   convertDateTimeFormat,
   checkAvailability,
   isBetweenWorkingHours,
-} from "../../util/index.js";
-import { useCustomToast } from "../../util";
+} from '../../util/index.js';
+import { useCustomToast } from '../../util';
 
 function HomeCustomer() {
   const { user } = useContext(AppContext);

@@ -1,7 +1,5 @@
-// authUtils.js
 const AUTH_STORAGE_KEY = 'clickbeard_auth';
 
-// Função para salvar dados do usuário no localStorage
 export const saveUserToStorage = (userData) => {
   try {
     const authData = {
@@ -14,7 +12,6 @@ export const saveUserToStorage = (userData) => {
   }
 };
 
-// Função para recuperar dados do usuário do localStorage
 export const getUserFromStorage = () => {
   try {
     const storedData = localStorage.getItem(AUTH_STORAGE_KEY);
@@ -22,14 +19,11 @@ export const getUserFromStorage = () => {
 
     const authData = JSON.parse(storedData);
 
-    // Verifica se o token ainda é válido baseado no timestamp do JWT
     if (authData.token && isTokenExpired(authData.token)) {
-      // Token expirado, remove do localStorage
       removeUserFromStorage();
       return null;
     }
 
-    // Remove o timestamp antes de retornar os dados do usuário
     const { timestamp, ...userData } = authData;
     return userData;
   } catch (error) {
@@ -38,7 +32,6 @@ export const getUserFromStorage = () => {
   }
 };
 
-// Função para remover dados do usuário do localStorage
 export const removeUserFromStorage = () => {
   try {
     localStorage.removeItem(AUTH_STORAGE_KEY);
@@ -47,13 +40,11 @@ export const removeUserFromStorage = () => {
   }
 };
 
-// Função para verificar se o usuário está autenticado
 export const isAuthenticated = () => {
   const userData = getUserFromStorage();
   return userData !== null && userData.token !== undefined;
 };
 
-// Função para decodificar o token JWT
 export const decodeJWT = (token) => {
   try {
     const base64Url = token.split('.')[1];
@@ -74,7 +65,6 @@ export const decodeJWT = (token) => {
   }
 };
 
-// Função para verificar se o token JWT está expirado
 export const isTokenExpired = (token) => {
   try {
     const decoded = decodeJWT(token);
