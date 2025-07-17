@@ -40,6 +40,10 @@ Para roda o banco de dados:
 
     docker-compose up -d
 
+Para dar start no orm
+
+    npx prisma generate
+
 Para subir as tabelas:
 
     npx prisma migrate deploy
@@ -75,8 +79,8 @@ disponível em: http://localhost:3000/
 
 ## Banco de dados
 
+<img width="862" height="557" alt="erd" src="https://github.com/user-attachments/assets/2356950e-ee04-4752-8f6c-fa635d2052b2" />
 
-![Captura de Tela (8)](https://github.com/willianbatist/ClickBeard_Willian_Alves/assets/91439283/e1437b2a-a5ae-46d4-b44f-b717f79d3aae)
 
 Este diagrama representa três entidades principais:
 
