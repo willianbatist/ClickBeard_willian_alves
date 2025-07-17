@@ -84,6 +84,8 @@ disponível em: http://localhost:3000/
 
 Este diagrama representa três entidades principais:
 
+Em Backend/prisma/migrations tem o script SQL do banco de dados.
+
 User: Representa os usuários do sistema, que têm um ID exclusivo, nome, e-mail, senha, função (role), e data de criação. Cada usuário pode ter vários agendamentos (ScheduledAppointments).
 
 Barber: Representa os barbeiros do sistema, que também têm um ID exclusivo, nome, idade, data de contratação, especialidades, e datas de criação e atualização. Cada barbeiro pode ter vários agendamentos (ScheduledAppointments).
