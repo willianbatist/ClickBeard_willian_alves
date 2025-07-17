@@ -15,15 +15,24 @@ export default class SpecialtyController {
     }
   }
 
-  async getSpecialtyById(req: Request, res: Response, _next: NextFunction) {
+  async getSpecialties(req: Request, res: Response, _next: NextFunction) {
     try {
-      const { id } = req.params;
-      const specialty = await this.service.getSpecialtyById(id);
-      return res.status(200).json(specialty);
+      const specialties = await this.service.getSpecialties();
+      return res.status(200).json(specialties);
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }
   }
+
+  // async getSpecialtyById(req: Request, res: Response, _next: NextFunction) {
+  //   try {
+  //     const { id } = req.params;
+  //     const specialty = await this.service.getSpecialtyById(id);
+  //     return res.status(200).json(specialty);
+  //   } catch (error: any) {
+  //     return res.status(400).json({ error: error.message });
+  //   }
+  // }
 
   async deleteSpecialty(req: Request, res: Response, _next: NextFunction) {
     try {

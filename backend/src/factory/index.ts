@@ -10,6 +10,9 @@ import ScheduledAppointmentService from '../services/scheduledAppointment.servic
 import SpecialtyController from '../controllers/specialty.controller';
 import SpecialtyRepository from '../repositories/specialty.repository';
 import SpecialtyService from '../services/specialty.service';
+import BarberSpecialtyController from '../controllers/barberSpecialty.controller';
+import BarberSpecialtyService from '../services/barberSpecialty.service';
+import BarberSpecialtyRepository from '../repositories/barberSpecialty.repository';
 
 export const UserFactory = () => {
   const repository = new UserRepository();
@@ -39,6 +42,14 @@ export const SpecialtyFactory = () => {
   const repository = new SpecialtyRepository();
   const service = new SpecialtyService(repository);
   const controller = new SpecialtyController(service);
+
+  return controller;
+};
+
+export const BarberSpecialtyFactory = () => {
+  const repository = new BarberSpecialtyRepository();
+  const service = new BarberSpecialtyService(repository);
+  const controller = new BarberSpecialtyController(service);
 
   return controller;
 };

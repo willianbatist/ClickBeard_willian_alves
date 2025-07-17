@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { ISpecialty, ISpecialtyModel } from '../interfaces/ISpecialty';
 
 const prisma = new PrismaClient();
@@ -14,6 +14,21 @@ export default class SpecialtyRepository implements ISpecialtyModel {
     return specialty as ISpecialty;
   }
 
+  async getSpecialties(): Promise<ISpecialty[]> {
+    const specialties = await prisma.specialty.findMany();
+    return specialties as ISpecialty[];
+  }
+
+  async getSpecialtyByName(name: string): Promise<ISpecialty | null> {
+    const specialty = await prisma.specialty.findFirst({
+      where: {
+        name: name,
+      },
+    });
+
+    return specialty as ISpecialty | null;
+  }
+
   async getSpecialtyById(id: string): Promise<ISpecialty | null> {
     const specialty = await prisma.specialty.findUnique({
       where: { id },
@@ -23,6 +38,9 @@ export default class SpecialtyRepository implements ISpecialtyModel {
   }
 
   async deleteSpecialty(id: string): Promise<unknown> {
+    await prisma.barberSpecialty.deleteMany({
+      where: { specialty_id: id },
+    });
     const del = await prisma.specialty.delete({ where: { id } });
     return del;
   }
