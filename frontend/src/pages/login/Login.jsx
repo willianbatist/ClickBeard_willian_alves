@@ -37,11 +37,15 @@ function Login() {
       }
 
       login(loginResponse);
-      customToast('Login realizado com sucesso!', 'success');
       navigate('/');
     } catch (error) {
       console.error('Erro durante o login:', error);
-      customToast('Erro interno do servidor. Tente novamente.', 'error');
+
+      if (error.response?.status === 400 && error.response?.data?.message === 'incorrect login') {
+        customToast('Email e/ou senha incorretos.', 'error');
+      } else {
+        customToast('Erro interno do servidor. Tente novamente.', 'error');
+      }
     }
   };
 
