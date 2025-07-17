@@ -25,10 +25,10 @@ export const Container = styled.div`
 export const LoginContainer = styled.form`
   background-color: white;
   border-radius: 40px;
-  -webkit-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  width: 500px;
+  -webkit-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  width: 600px;
   height: 700px;
   display: flex;
   flex-direction: column;

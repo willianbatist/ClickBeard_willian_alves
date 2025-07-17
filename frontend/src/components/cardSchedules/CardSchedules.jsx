@@ -1,4 +1,4 @@
-import { ContainerCardSchedules } from "./cardSchedules.styles";
+import { ContainerCardSchedules } from './cardSchedules.styles';
 import {
   Modal,
   ModalOverlay,
@@ -9,10 +9,10 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-} from "@chakra-ui/react";
-import { formatDate } from "../../util";
-import { useState } from "react";
-import { lessThanTwoHours } from "../../util";
+} from '@chakra-ui/react';
+import { formatDate } from '../../util';
+import { useState } from 'react';
+import { lessThanTwoHours } from '../../util';
 
 function CardSchedules(Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,10 +29,10 @@ function CardSchedules(Props) {
           {` ${Props.name}`}
         </p>
         <Button
-          fontSize={"10px"}
+          fontSize={'10px'}
           size="xs"
-          color={"white"}
-          backgroundColor={"#18382d"}
+          color={'white'}
+          backgroundColor={'#18382d'}
           onClick={() => {
             onOpen();
             setIsButton(!lessThanTwoHours(Props.date));
@@ -42,12 +42,7 @@ function CardSchedules(Props) {
         </Button>
       </ContainerCardSchedules>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay
-          bg="none"
-          backdropFilter="auto"
-          backdropInvert="20%"
-          backdropBlur="3px"
-        />
+        <ModalOverlay bg="none" backdropFilter="auto" backdropInvert="20%" backdropBlur="3px" />
         <ModalContent>
           <ModalHeader>Cancelar horário</ModalHeader>
           <ModalCloseButton />
@@ -56,8 +51,8 @@ function CardSchedules(Props) {
           </ModalBody>
           <ModalFooter>
             <Button
-              color={"white"}
-              backgroundColor={"#18382d"}
+              color={'white'}
+              backgroundColor={'#18382d'}
               mr={3}
               onClick={() => {
                 onClose();
@@ -67,7 +62,7 @@ function CardSchedules(Props) {
               fechar
             </Button>
             <Button
-              color={"red"}
+              color={'red'}
               variant="ghost"
               isDisabled={isButton}
               onClick={() => Props.delete(Props.id, onClose)}

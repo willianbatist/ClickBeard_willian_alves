@@ -11,7 +11,7 @@ export const HomeAdminContainer = styled.div`
 
 export const Container = styled.div`
   background-color: white;
-  width: 500px;
+  width: 600px;
   min-height: 600px;
   margin-top: 120px;
   margin-bottom: 20px;
@@ -20,9 +20,9 @@ export const Container = styled.div`
   align-items: center;
 
   border-radius: 40px;
-  -webkit-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
 
   h1 {
     padding-top: 30px;

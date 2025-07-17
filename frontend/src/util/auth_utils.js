@@ -1,11 +1,12 @@
-import { AUTH_STORAGE_KEY } from '../constants';
+// authUtils.js
+const AUTH_STORAGE_KEY = 'clickbeard_auth';
 
 // Função para salvar dados do usuário no localStorage
 export const saveUserToStorage = (userData) => {
   try {
     const authData = {
       ...userData,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
     localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
   } catch (error) {
@@ -20,13 +21,9 @@ export const getUserFromStorage = () => {
     if (!storedData) return null;
 
     const authData = JSON.parse(storedData);
-    
-    // Verifica se o token ainda é válido (1 hora = 3600000 ms)
-    const currentTime = Date.now();
-    const tokenAge = currentTime - authData.timestamp;
-    const TOKEN_EXPIRY = 60 * 60 * 1000; // 1 hora em milliseconds
-    
-    if (tokenAge > TOKEN_EXPIRY) {
+
+    // Verifica se o token ainda é válido baseado no timestamp do JWT
+    if (authData.token && isTokenExpired(authData.token)) {
       // Token expirado, remove do localStorage
       removeUserFromStorage();
       return null;
@@ -56,15 +53,20 @@ export const isAuthenticated = () => {
   return userData !== null && userData.token !== undefined;
 };
 
-// Função para decodificar o token JWT (opcional, para verificação adicional)
+// Função para decodificar o token JWT
 export const decodeJWT = (token) => {
   try {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map((c) => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+
     return JSON.parse(jsonPayload);
   } catch (error) {
     console.error('Erro ao decodificar token:', error);
@@ -77,7 +79,7 @@ export const isTokenExpired = (token) => {
   try {
     const decoded = decodeJWT(token);
     if (!decoded || !decoded.exp) return true;
-    
+
     const currentTime = Date.now() / 1000;
     return decoded.exp < currentTime;
   } catch (error) {

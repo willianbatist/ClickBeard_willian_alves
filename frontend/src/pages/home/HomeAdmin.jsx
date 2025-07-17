@@ -15,29 +15,34 @@ import { useCustomToast } from "../../util";
 function HomeAdmin() {
   const { setBarbers, user, barbers } = useContext(AppContext);
   const [isDelete, setIsDelete] = useState(false);
+  const [updateTrigger, setUpdateTrigger] = useState(0);
   const navigate = useNavigate();
   const customToast = useCustomToast();
 
   const handleRequestBarbers = async () => {
-    const res = await sendRequest("get", "/barber");
-    
+    const res = await sendRequest('get', '/barber');
     setBarbers(res);
   };
 
   const handleRequestDelete = async (id, onClose) => {
-    await sendRequest("delete", `/barber/delete/${id}`);
+    await sendRequest('delete', `/barber/delete/${id}`);
     onClose();
     setIsDelete(!isDelete);
-    customToast("Colaborador removido", "success");
+    customToast('Colaborador removido', 'success');
+  };
+
+  // Função para atualizar a lista de barbeiros após modificação das especialidades
+  const handleUpdateBarbers = () => {
+    setUpdateTrigger((prev) => prev + 1);
   };
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     requestToken(user?.token);
     handleRequestBarbers();
-  }, [isDelete]);
+  }, [isDelete, updateTrigger]);
 
   return (
     <>
@@ -55,6 +60,7 @@ function HomeAdmin() {
                   specialties={barber.specialties}
                   id={barber.id}
                   delete={handleRequestDelete}
+                  onUpdate={handleUpdateBarbers}
                 />
               ))}
           </ContainerCardBarber>

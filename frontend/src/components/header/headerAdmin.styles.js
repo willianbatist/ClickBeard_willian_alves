@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -33,7 +33,7 @@ export const HeaderContainer = styled.header`
     font-weight: 700;
   }
 
-  a:hover  {
+  a:hover {
     color: #84a98c;
     transition: 0.7s;
   }

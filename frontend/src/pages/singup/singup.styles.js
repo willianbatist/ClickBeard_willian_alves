@@ -17,16 +17,16 @@ export const Container = styled.div`
 
 export const SingupContainer = styled.form`
   background-color: white;
-  width: 500px;
+  width: 600px;
   height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   border-radius: 40px;
-  -webkit-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
 
   h1 {
     font-weight: 900;

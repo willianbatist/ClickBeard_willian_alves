@@ -24,7 +24,7 @@ function HomeCustomer() {
   const { user } = useContext(AppContext);
   const [customer, setCustomer] = useState();
   const [specialties, setSpecialties] = useState();
-  const [specialty, setSpecialty] = useState("w");
+  const [specialty, setSpecialty] = useState('w');
   const [barbers, setBarbers] = useState();
   const [filterBarbers, setFilterBarbers] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +42,8 @@ function HomeCustomer() {
 
     if (Array.isArray(barbers)) {
       barbers.forEach((barber) => {
-        barber.specialties.forEach((specialty) => {
-          specialtiesSet.add(specialty);
+        barber.specialties.forEach((specialtyObj) => {
+          specialtiesSet.add(specialtyObj.specialty.name);
         });
       });
     }
@@ -53,7 +53,7 @@ function HomeCustomer() {
 
   const handleSpecialties = async () => {
     requestToken(user?.token);
-    const getBarbers = await sendRequest("get", "/barber");
+    const getBarbers = await sendRequest('get', '/barber');
     setBarbers(getBarbers);
     const arraySpecialties = extractUniqueSpecialties(getBarbers);
     setSpecialties(arraySpecialties);
@@ -61,14 +61,14 @@ function HomeCustomer() {
 
   function filterBarbersBySpecialty(barbers, specialty) {
     const filteredBarbers = barbers.filter((barber) => {
-      return barber.specialties.includes(specialty);
+      return barber.specialties.some((specialtyObj) => specialtyObj.specialty.name === specialty);
     });
     return filteredBarbers;
   }
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     if (user) {
       setCustomer(user);
@@ -82,7 +82,7 @@ function HomeCustomer() {
 
   useEffect(() => {
     if (specialty.length > 2) {
-      const filt = filterBarbersBySpecialty(barbers, specialty);
+      const filt = filterBarbersBySpecialty(barbers || [], specialty);
       setFilterBarbers(filt);
       setIsLoadingFilter(false);
     }
@@ -90,41 +90,34 @@ function HomeCustomer() {
 
   const onSubmit = async (data) => {
     try {
-      const getScheduled = await sendRequest(
-        "get",
-        `/scheduledAppointment/${data.barber_id}`
-      );
+      const getScheduled = await sendRequest('get', `/scheduledAppointment/${data.barber_id}`);
       if (getScheduled.length >= 1) {
         const convertedDateTime = convertDateTimeFormat(data.date);
         const isAvailable = checkAvailability(getScheduled, convertedDateTime);
         if (isAvailable && isBetweenWorkingHours(convertedDateTime)) {
-          await sendRequest("post", `/scheduledAppointment`, {
+          await sendRequest('post', `/scheduledAppointment`, {
             date: convertedDateTime,
             user_id: customer.id,
             barber_id: data.barber_id,
           });
-          customToast("Agendado com sucesso", "success");
-          navigate("/my-schedules");
+          customToast('Agendado com sucesso', 'success');
+          navigate('/my-schedules');
         } else {
-          customToast("Horário indisponível", "error");
+          customToast('Horário indisponível', 'error');
         }
       }
       if (getScheduled.length < 1) {
         const convertedDateTime = convertDateTimeFormat(data.date);
         if (isBetweenWorkingHours(convertedDateTime)) {
-          const getScheduled = await sendRequest(
-            "post",
-            `/scheduledAppointment`,
-            {
-              date: convertedDateTime,
-              user_id: customer.id,
-              barber_id: data.barber_id,
-            }
-          );
-          customToast("Agendado com sucesso", "success");
-          navigate("/my-schedules");
+          await sendRequest('post', `/scheduledAppointment`, {
+            date: convertedDateTime,
+            user_id: customer.id,
+            barber_id: data.barber_id,
+          });
+          customToast('Agendado com sucesso', 'success');
+          navigate('/my-schedules');
         } else {
-          customToast("Horário indisponível", "error");
+          customToast('Horário indisponível', 'error');
         }
       }
     } catch (error) {
@@ -143,11 +136,11 @@ function HomeCustomer() {
             <Options>
               <span>Horário:</span>
               <Input
-                _placeholder={{ color: "#18382d" }}
-                width={"100%"}
+                _placeholder={{ color: '#18382d' }}
+                width={'100%'}
                 placeholder="Selecione Data e Hora"
                 size="md"
-                {...register("date", { required: "Horário é obrigatório" })}
+                {...register('date', { required: 'Horário é obrigatório' })}
                 type="datetime-local"
               />
               {errors.date && <p>{errors.date.message}</p>}
@@ -155,13 +148,13 @@ function HomeCustomer() {
             <Options>
               <span>Especialidade:</span>
               <Select
-                _placeholder={{ color: "#18382d" }}
-                width={"100%"}
+                _placeholder={{ color: '#18382d' }}
+                width={'100%'}
                 placeholder="Selecione uma opção"
-                {...register("specialty", {
-                  required: "Especialidade é obrigatório",
+                {...register('specialty', {
+                  required: 'Especialidade é obrigatório',
                 })}
-                onClick={(e) => {
+                onChange={(e) => {
                   setSpecialty(e.target.value);
                 }}
               >
@@ -177,10 +170,10 @@ function HomeCustomer() {
             <Options>
               <span>Barbeiro:</span>
               <Select
-                _placeholder={{ color: "#18382d" }}
-                width={"100%"}
-                {...register("barber_id", {
-                  required: "Escolher um barbeiro é obrigatório",
+                _placeholder={{ color: '#18382d' }}
+                width={'100%'}
+                {...register('barber_id', {
+                  required: 'Escolher um barbeiro é obrigatório',
                 })}
                 placeholder="Selecione uma opção"
               >
@@ -199,7 +192,7 @@ function HomeCustomer() {
               type="submit"
               backgroundColor="#18382d"
               color="white"
-              width={"100px"}
+              width={'100px'}
               onClick={handleSubmit(onSubmit)}
             >
               Cadastrar

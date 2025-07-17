@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const RegisterForm = styled.form`
   background-color: white;
-  width: 500px;
+  width: 600px;
   height: 700px;
   margin-top: 120px;
   display: flex;
@@ -20,9 +20,9 @@ export const RegisterForm = styled.form`
   align-items: center;
 
   border-radius: 40px;
-  -webkit-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 15px -6px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 6px 6px 15px -6px rgba(0, 0, 0, 0.75);
 
   p {
     color: red;

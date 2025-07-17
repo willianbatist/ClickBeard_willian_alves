@@ -1,4 +1,4 @@
-import { CardBarberContainer } from "./cardBarber.styles";
+import { CardBarberContainer } from './cardBarber.styles';
 import {
   Modal,
   ModalOverlay,
@@ -9,16 +9,22 @@ import {
   ModalCloseButton,
   useDisclosure,
   Button,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
+import SpecialtiesModal from './SpecialtiesModal';
 
 function CardBarber(Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure();
+  const {
+    isOpen: isSpecialtiesOpen,
+    onOpen: onSpecialtiesOpen,
+    onClose: onSpecialtiesClose,
+  } = useDisclosure();
 
   return (
     <>
       <CardBarberContainer>
         <p>
-          <span>Data e hora:</span>
+          <span>Nome:</span>
           {` ${Props.name}`}
         </p>
         <p>
@@ -28,28 +34,46 @@ function CardBarber(Props) {
         <div>
           <span>{`Especialidades: `}</span>
           <ul>
-            {Props.specialties.map((item) => (
-              <li>{item.specialty.name}</li>
+            {Props.specialties.map((item, index) => (
+              <li key={index}>{item.specialty.name}</li>
             ))}
           </ul>
-          <Button
-            fontSize={"10px"}
-            size="xs"
-            color={"white"}
-            backgroundColor={"#18382d"}
-            onClick={onOpen}
-          >
-            Remover
-          </Button>
+          <div>
+            <Button
+              fontSize={'10px'}
+              size="xs"
+              color={'white'}
+              backgroundColor={'#18382d'}
+              onClick={onSpecialtiesOpen}
+            >
+              Gerenciar
+            </Button>
+            <Button
+              fontSize={'10px'}
+              size="xs"
+              color={'white'}
+              backgroundColor={'#dc3545'}
+              onClick={onDeleteOpen}
+            >
+              Remover
+            </Button>
+          </div>
         </div>
       </CardBarberContainer>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay
-          bg="none"
-          backdropFilter="auto"
-          backdropInvert="20%"
-          backdropBlur="3px"
-        />
+
+      {/* Modal para gerenciar especialidades */}
+      <SpecialtiesModal
+        isOpen={isSpecialtiesOpen}
+        onClose={onSpecialtiesClose}
+        barberId={Props.id}
+        barberName={Props.name}
+        barberSpecialties={Props.specialties}
+        onUpdate={Props.onUpdate}
+      />
+
+      {/* Modal para remover barbeiro */}
+      <Modal isOpen={isDeleteOpen} onClose={onDeleteClose}>
+        <ModalOverlay bg="none" backdropFilter="auto" backdropInvert="20%" backdropBlur="3px" />
         <ModalContent>
           <ModalHeader>Remover colaborador</ModalHeader>
           <ModalCloseButton />
@@ -57,18 +81,13 @@ function CardBarber(Props) {
             <p>Tem certeza que deseja remover o colaborador?</p>
           </ModalBody>
           <ModalFooter>
-            <Button
-              color={"white"}
-              backgroundColor={"#18382d"}
-              mr={3}
-              onClick={onClose}
-            >
+            <Button color={'white'} backgroundColor={'#18382d'} mr={3} onClick={onDeleteClose}>
               fechar
             </Button>
             <Button
-              color={"red"}
+              color={'red'}
               variant="ghost"
-              onClick={() => Props.delete(Props.id, onClose)}
+              onClick={() => Props.delete(Props.id, onDeleteClose)}
             >
               Remover colaborador
             </Button>
