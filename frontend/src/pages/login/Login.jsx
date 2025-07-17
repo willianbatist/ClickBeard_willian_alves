@@ -1,6 +1,7 @@
 import { Container, LoginContainer, GroupButton, Logo } from './login.styles';
 import { useForm } from 'react-hook-form';
-import { Button, InputGroup, Input, InputRightElement } from '@chakra-ui/react';
+import { Button, InputGroup, Input, InputRightElement, IconButton } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import logo from '../../assets/logo.png';
 import { requestLogin } from '../../services';
 import { useContext, useState, useEffect } from 'react';
@@ -78,16 +79,16 @@ function Login() {
             placeholder="senha"
           />
           <InputRightElement width="4.5rem">
-            <Button
+            <IconButton
               h="1.75rem"
-              size="sm"
+              size="lg"
               onClick={handleClick}
-              color="white"
-              backgroundColor="#18382d"
-              marginRight={'4px'}
-            >
-              {show ? 'Esconder' : 'Mostrar'}
-            </Button>
+              icon={show ? <ViewOffIcon /> : <ViewIcon />}
+              aria-label={show ? 'Esconder senha' : 'Mostrar senha'}
+              variant="ghost"
+              color="#18382d"
+              _hover={{ backgroundColor: 'rgba(24, 56, 45, 0.1)' }}
+            />
           </InputRightElement>
         </InputGroup>
         {errors.password && <p>{errors.password.message}</p>}
