@@ -33,9 +33,9 @@ export async function validateLogin(req: Request, res: Response, next: NextFunct
     reqBodySchemalogin.parse(req.body);
     const { email, password } = req.body;
     const user = await userRepository.getUserByEmail(email);
-    if (!user) return res.status(400).json({ message: 'incorrect email' });
+    if (!user) return res.status(400).json({ message: 'incorrect login' });
     const check = bcrypt.compareSync(password, user.password);
-    if (!check) return res.status(400).json({ message: 'incorrect password' });
+    if (!check) return res.status(400).json({ message: 'incorrect login' });
     next();
   } catch (error) {
     res.status(400).json({ message: 'invalid data', error });
