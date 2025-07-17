@@ -55,10 +55,10 @@ async function main() {
         },
       });
 
-      console.log(`✅ Barbeiro criado: ${createdBarber.name}`);
+      console.log(`Barbeiro criado: ${createdBarber.name}`);
     }
   } catch (error) {
-    console.error('❌ Erro ao rodar a seed:', error);
+    console.error('Erro ao rodar a seed:', error);
     process.exit(1);
   } finally {
     await prisma.$disconnect();
