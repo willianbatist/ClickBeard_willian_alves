@@ -6,6 +6,9 @@ const prisma = new PrismaClient();
 export default class BarberRepository implements IBarberModel {
   async deleteBarber(id: string): Promise<unknown> {
     await prisma.scheduledAppointment.deleteMany({ where: { barber_id: id } });
+    await prisma.barberSpecialty.deleteMany({
+      where: { barber_id: id },
+    });
     const del = await prisma.barber.delete({ where: { id } });
     return del;
   }
@@ -38,25 +41,13 @@ export default class BarberRepository implements IBarberModel {
   }
 
   async create(data: IBarber): Promise<IBarber> {
-    const { name, age, dateHire, specialties } = data;
+    const { name, age, dateHire } = data;
 
     const barber = await prisma.barber.create({
       data: {
         name,
         age,
         dateHire,
-        specialties: {
-          create: specialties.map((item) => ({
-            specialty: {
-              connect: { id: item.specialty.id },
-            },
-          })),
-        },
-      },
-      include: {
-        specialties: {
-          include: { specialty: true },
-        },
       },
     });
 

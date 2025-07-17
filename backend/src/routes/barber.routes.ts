@@ -15,7 +15,7 @@ barberRouter.post(
   }
 );
 
-barberRouter.get('/barber', validateJWT, (req, res, next) => {
+barberRouter.get('/barber', (req, res, next) => {
   BarberFactory().getBarbers(req, res, next);
 });
 

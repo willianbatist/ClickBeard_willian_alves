@@ -10,7 +10,6 @@ const requestBodySchema = z.object({
   name: z.string(),
   age: z.number(),
   dateHire: z.string(),
-  specialties: z.array(z.string()),
 });
 
 export async function validateRoleAdm(req: CustomRequest, res: Response, next: NextFunction) {
