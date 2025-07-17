@@ -39,18 +39,13 @@ const AppProvider = ({ children }) => {
         setUserState(storedUser);
         requestToken(storedUser.token);
         setIsUserAuthenticated(true);
-        console.log('Usuário carregado do localStorage:', storedUser);
       } else {
         setIsUserAuthenticated(false);
-        console.log('Nenhum usuário autenticado encontrado no localStorage');
       }
     };
 
     checkStoredAuth();
   }, []);
-
-  console.log('AppProvider user:', user);
-  console.log('AppProvider isUserAuthenticated:', isUserAuthenticated);
 
   const contextValue = {
     user,
