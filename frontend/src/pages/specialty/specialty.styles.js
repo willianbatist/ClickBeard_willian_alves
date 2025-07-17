@@ -53,8 +53,6 @@ export const SpecialtyForm = styled.form`
 
 export const SpecialtyList = styled.div`
   width: 90%;
-  max-height: 400px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -74,25 +72,6 @@ export const SpecialtyList = styled.div`
     font-style: italic;
     text-align: center;
     margin: 20px 0;
-  }
-
-  /* Estilização da scrollbar */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #18382d;
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #0f2119;
   }
 `;
 

@@ -8,16 +8,17 @@ import HeaderCustomer from "./HeaderCustomer";
 function Header() {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
   }, []);
 
   return (
     <>
-      {user?.role === "admin" ? (<HeaderAdmin/>): ""}
-      {user?.role === "customer" ? <HeaderCustomer /> : ""}
+      {user?.role === 'admin' && <HeaderAdmin />}
+      {user?.role === 'customer' && <HeaderCustomer />}
     </>
   );
 }
